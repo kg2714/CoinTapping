@@ -27,6 +27,7 @@ public class TappingGame {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		JFrame f = new JFrame("Tapping Game");
 		f.setSize(675,  309);
+		f.setResizeable(false);
 		f.setDefaultCloseOperation(3);
 		f.getContentPane().setLayout(null);
 		
