@@ -1,7 +1,5 @@
-# Tapping Coin v1.0
+# Tapping Coin
 
-It just a simple game
-
-It don't have save game
-
-I will update it later
+Update 1.1:
+- Fix coin limit error
+- Update background music
