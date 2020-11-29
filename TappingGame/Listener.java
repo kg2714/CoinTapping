@@ -2,14 +2,14 @@ package TappingGame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.math.BigInteger;
+import java.util.Random;
 
 import javax.swing.JOptionPane;
 
-public class Listener implements MouseListener, ActionListener, KeyListener {
+public class Listener implements MouseListener, ActionListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -19,8 +19,8 @@ public class Listener implements MouseListener, ActionListener, KeyListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if(e.getSource() == TappingGame.canvas) {
-			TappingGame.coin += TappingGame.perTap;
-			TappingGame.cash.setText("$ "+TappingGame.coin);
+			TappingGame.coin = TappingGame.coin.add(TappingGame.perTap);
+			TappingGame.cash.setText("$ "+TappingGame.coin.toString());
 		}
 
 	}
@@ -53,42 +53,23 @@ public class Listener implements MouseListener, ActionListener, KeyListener {
 	}
 
 	public static void getCoin() {
-		if (TappingGame.coin >= (int) (TappingGame.hmn.getModel().getValue()) * (27)) {
+		if (TappingGame.coin.compareTo(new BigInteger(Integer.toString((int) ((int) (TappingGame.hmn.getModel().getValue()) * (27 * TappingGame.mtp))))) == 1) {
 
-			TappingGame.coin -= (int) (TappingGame.hmn.getModel().getValue()) * (27);
+			TappingGame.coin = TappingGame.coin.subtract(new BigInteger(Integer.toString((int) ((int) (TappingGame.hmn.getModel().getValue()) * (27 * TappingGame.mtp)))));
 			TappingGame.cash.setText("$ "+TappingGame.coin);
 			if ((int) TappingGame.hmn.getModel().getValue() < 9999999) {
-				TappingGame.perTap += (int) TappingGame.hmn.getModel().getValue();
+				TappingGame.perTap = TappingGame.perTap.add(new BigInteger(TappingGame.hmn.getModel().getValue().toString()));
 
 				TappingGame.pT.setText("$ "+TappingGame.perTap + "/tap");
 			} else {
 				TappingGame.pT.setText("$ 1/tap");
 				JOptionPane.showMessageDialog(null, "It's must be from 1 to 9999999");
 			}
+			TappingGame.mtp = new Random().nextDouble();
 			
 		} else {
-			JOptionPane.showMessageDialog(null, "You don't have "+(int) (TappingGame.hmn.getModel().getValue()) * (27)+"$");
+			JOptionPane.showMessageDialog(null, "You don't have "+(int) (TappingGame.hmn.getModel().getValue()) * (27 * TappingGame.mtp)+"$");
 		}
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if(e.getSource() == TappingGame.canvas) {
-			TappingGame.coin += TappingGame.perTap;
-			TappingGame.cash.setText("$ "+TappingGame.coin);
-		}		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

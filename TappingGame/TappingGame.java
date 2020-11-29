@@ -3,6 +3,7 @@ package TappingGame;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
+import java.math.BigInteger;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,7 +16,8 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 public class TappingGame {
-	public static int coin = 0, perTap = 1;
+	public static BigInteger coin = new BigInteger("0"), perTap = new BigInteger("1");
+	public static double mtp = 1.0;
 	
 
 	public static JLabel cash, pT;
@@ -24,17 +26,20 @@ public class TappingGame {
 	public static JSpinner hmn;
 
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+		Thread b = new Thread(new bgmusic());
+		b.start();
+		
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		JFrame f = new JFrame("Tapping Game");
 		f.setSize(675,  309);
-		f.setResizeable(false);
+		f.setResizable(false);
 		f.setDefaultCloseOperation(3);
 		f.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
-		panel.setBounds(0, 0, 659, 270);
-		f.getContentPane().add(panel);
+		panel.setBounds(0, 0, 669, 280);
+		
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("$$$ PRESS HERE TO GET COIN! $$$");
@@ -45,9 +50,8 @@ public class TappingGame {
 		
 		canvas = new Canvas();
 		canvas.setBackground(new Color(128, 128, 128));
-		canvas.setBounds(0, 37, 430, 233);
+		canvas.setBounds(0, 37, 430, 243);
 		canvas.addMouseListener(new Listener());
-		canvas.addKeyListener(new Listener());
 		panel.add(canvas);
 		
 		cash = new JLabel("$ ");
@@ -74,6 +78,7 @@ public class TappingGame {
 		lblNewLabel_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		lblNewLabel_2.setBounds(615, 142, 44, 19);
 		panel.add(lblNewLabel_2);
+		f.getContentPane().add(panel);
 		
 		f.setVisible(true);
 	}
